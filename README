@@ -1,0 +1,31 @@
+Jugaru Marius-Gabriel 312CB
+
+Banda magica cu deget
+
+Problema cere implementarea unei benzi magice cu un deget care se afla pe elementul curent. Degetul se poate muta la infinit la dreapta dar nu mai departe de primul element in stanga. Asupra acestei benzi se pot efectua mai multe operatii (MOVE_LEFT, MOVE_RIGHT, MOVE_LEFT <C>, MOVE_RIGHT <C>, WRITE <C>, INSERT_LEFT <C>, INSERT_RIGHT <C>, EXECUTE, SHOW, SHOW_CURRENT, UNDO, REDO). Acesta este un mod interesant de a stoca informatii.
+
+Initializarea benzii este realizata prin alocarea unui element de tip TBanda* care are doua elemente: lista si deget. Lista este o lista dublu inlantuita cu santinela si este initializata printr-o funtie InitL2(), apoi degetul o sa pointeze catre al doilea element din aceasta, adica primul element dupa santinela. Asupra listei vor avea loc operatiile.
+
+Citirea operatiilor se face din fisier. Pe prima linie se afla numarul de operatii, iar, incepand de pe a doua linie operatiile propriu-zise. Acestea sunt verificate si stocate sau executate in functie de tipul de operatie
+
+Exista 4 categorii de operatii: UPDATE (operatii care urmeaza sa fie executate in urma utilizarii lui execute), QUERY (operatii care sunt executate instant), UNDO/REDO si EXECUTE. 
+
+UPDATE - toate aceste operatii sunt salvate intr-o coada de tip lista simplu inlantuita
+	MOVE_LEFT, MOVE_RIGHT - Pozitia curenta este salvata in varful stivei undo si se realizeaza operatia corespunzatoare.
+	WRITE - Scrie elementul char pe pozitia curenta
+	MOVE_RIGHT <C> - Foloseste doua variabile pentru a parcurge lista, elementul curent si cel anterior. In cazul in care elementul curent este NULL inseamna ca elementul <C> nu s-a gasit in lista si se creaza o noua celula cu valoarea '#'
+	MOVE_LEFT <C> - Se parcurge lista pana se ajunge la elementul dorit sau santinela. Daca parcurgerea a ajuns pana la santinela se afiseaza eroare, elementul dorit nu a putut fi gasit.
+	INSERT_LEFT <C>, INSERT_RIGHT <C> - Se aloca o celula noua in care se scrie informatie dorita si este introdusa in stanga, respectiv in dreapta dupa operatie. In cazul in care se incearca introducerea in stanga primului element se afiseaza eroare.
+	
+QUERY
+	SHOW - Se foloseste un element auxiliar care parcurge lista si afiseaza in fisier informatiile
+	SHOW_CURRENT - Se foloseste un element auxiliar afiseaza in fisier elementul curent
+	
+UNDO/REDO - aceste operatii salveaza adresa degetului inaintea unei operatii de tipul MOVE_LEFT/MOVE_RIGHT, respectiv unei operatii de tipul UNDO, fiecare intr-o stiva proprie.
+
+EXECUTE - extrage un element din coada si il executa.
+
+Punctaj
+
+Total: 100.0/100
+Valgrind: 20/20
